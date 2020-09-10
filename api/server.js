@@ -13,7 +13,7 @@ server.use(cors())
 server.use(express.json())
 
 server.get('/', (req, res) => {
-    res.send('<h1>I Think its working</h1>')
+    res.status(200).send('<h1>I Think its working</h1>')
 })
 
 module.exports = server

@@ -7,6 +7,13 @@ exports.up = function(knex) {
         tbl.string('username', 36).notNullable().unique()
         tbl.string('password', 36).notNullable()
     })
+    .createTable('items', tbl => {
+        tbl.increments()
+        tbl.integer('price').unsigned().notNullable()
+        tbl.string('name', 128).unique().notNullable()
+        tbl.string('description', 240).notNullable()
+
+    })
 }
 
 exports.down = frunction(knex) {

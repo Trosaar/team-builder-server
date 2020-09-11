@@ -12,8 +12,15 @@ exports.up = function(knex) {
         tbl.integer('price').unsigned().notNullable()
         tbl.string('name', 128).unique().notNullable()
         tbl.string('description', 240).notNullable()
-
     })
+    .createTable('purchases', tbl => {
+        tbl.increments()
+        tbl.integer('user_id').unsigned().notNullable()
+            .references('UUID').inTable('users')
+            .onDelete('CASCADE').onUpdate('CASCADE')
+        tbl.timestamps(true, true)
+    })
+
 }
 
 exports.down = frunction(knex) {

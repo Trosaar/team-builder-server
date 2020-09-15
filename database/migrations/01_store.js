@@ -16,7 +16,7 @@ exports.up = function(knex) {
         tbl.string('catagory', 36).notNullable()
     })
     .createTable('users', tbl => {
-        tbl.string('UUID').notNullable().unique()
+        tbl.string('UUID').notNullable().unique().primary()
         tbl.string('username', 36).notNullable().unique()
         tbl.string('password', 36).notNullable()
     })
@@ -29,7 +29,6 @@ exports.up = function(knex) {
         tbl.string('color').references('color').inTable('item_colors')
     })
     .createTable('items_catagories', tbl => {
-        tbl.increments()
         tbl.integer('item_id').notNullable().unsigned()
             .references('id').inTable('items')
         tbl.integer('cat_id').notNullable().unsigned()
@@ -44,9 +43,9 @@ exports.up = function(knex) {
     })
 }
 
-exports.down = frunction(knex) {
+exports.down = function(knex) {
     return knex.schema
-    .dropTableIfExists()
+    .dropTableIfExists('purchases')
 }
 
 /*

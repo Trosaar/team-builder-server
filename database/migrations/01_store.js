@@ -1,8 +1,21 @@
 
 exports.up = function(knex) {
     return knex.schema
-    .createTable('users', tbl => {
+    .createTable('item_sizes', tbl => {
         tbl.increments()
+        tbl.string('size', 128).notNullable().unique()
+            .onDelete('CASCADE').onUpdate('CASCADE')
+    })
+    .createTable('item_colors', tbl => {
+        tbl.increments()
+        tbl.string('color', 128).notNullable().unique()
+            .onDelete('CASCADE').onUpdate('CASCADE')
+    })
+    .createTable('catagories', tbl => {
+        tbl.increments()
+        tbl.string('catagory', 36).notNullable()
+    })
+    .createTable('users', tbl => {
         tbl.string('UUID').notNullable().unique()
         tbl.string('username', 36).notNullable().unique()
         tbl.string('password', 36).notNullable()
@@ -14,8 +27,13 @@ exports.up = function(knex) {
         tbl.string('description', 240).notNullable()
         tbl.string('size').references('size').inTable('item_sizes')
         tbl.string('color').references('color').inTable('item_colors')
-        // tbl.enu('size', ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'])
-        // tbl.string('color', 128)
+    })
+    .createTable('items_catagories', tbl => {
+        tbl.increments()
+        tbl.integer('item_id').notNullable().unsigned()
+            .references('id').inTable('items')
+        tbl.integer('cat_id').notNullable().unsigned()
+            .references('id').inTable('catagories')
     })
     .createTable('purchases', tbl => {
         tbl.increments()
@@ -24,17 +42,6 @@ exports.up = function(knex) {
             .onDelete('CASCADE').onUpdate('CASCADE')
         tbl.timestamps(true, true)
     })
-    .createTable('item_sizes', tbl => {
-        tbl.increments()
-        tbl.string('size', 128).notNullable().unique()
-            .onDelete('CASCADE').onUpdate('CASCADE')
-    })
-    .createTable('item_colors', tbl => {
-        tbl.increments()
-        tbl.string('color', 128).notNullable().unique()
-            .onDelete('CASCADE').onUpdate('CASCADE')
-    })
-
 }
 
 exports.down = frunction(knex) {

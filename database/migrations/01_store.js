@@ -46,6 +46,12 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
     .dropTableIfExists('purchases')
+    .dropTableIfExists('items_catagories')
+    .dropTableIfExists('items')
+    .dropTableIfExists('users')
+    .dropTableIfExists('catagories')
+    .dropTableIfExists('item_colors')
+    .dropTableIfExists('item_sizes')
 }
 
 /*

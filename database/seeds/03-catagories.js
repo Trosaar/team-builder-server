@@ -1,11 +1,11 @@
 exports.seed = function(knex) {
-    return knex('catagories').insert([
-        {'catagory': 'Kitchen'},
-        {'catagory': 'Bath'},
-        {'catagory': 'Bedroom'},
-        {'catagory': 'Electronics'},
-        {'catagory': 'Music'},
-        {'catagory': 'Art'},
+    return knex('categories').insert([
+        {'category': 'Kitchen'},
+        {'category': 'Bath'},
+        {'category': 'Bedroom'},
+        {'category': 'Electronics'},
+        {'category': 'Music'},
+        {'category': 'Art'},
 
     ])
 }

@@ -11,9 +11,9 @@ exports.up = function(knex) {
         tbl.string('color', 128).notNullable().unique()
             .onDelete('CASCADE').onUpdate('CASCADE')
     })
-    .createTable('catagories', tbl => {
+    .createTable('categories', tbl => {
         tbl.increments()
-        tbl.string('catagory', 36).notNullable()
+        tbl.string('category', 36).notNullable()
     })
     .createTable('users', tbl => {
         tbl.string('UUID').notNullable().unique().primary()
@@ -28,7 +28,7 @@ exports.up = function(knex) {
         tbl.string('size').references('size').inTable('item_sizes')
         tbl.string('color').references('color').inTable('item_colors')
     })
-    .createTable('items_catagories', tbl => {
+    .createTable('items_categories', tbl => {
         tbl.integer('item_id').notNullable().unsigned()
             .references('id').inTable('items')
         tbl.integer('cat_id').notNullable().unsigned()

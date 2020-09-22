@@ -11,9 +11,15 @@ exports.up = function(knex) {
         tbl.string('color', 128).notNullable().unique()
             .onDelete('CASCADE').onUpdate('CASCADE')
     })
-    .createTable('categories', tbl => {
+    .createTable('mainCategories', tbl => {
         tbl.increments()
-        tbl.string('category', 36).notNullable()
+        tbl.string('cat_name', 128).notNullable().unique()
+    })
+    .createTable('subCategories', tbl => {
+        tbl.increments()
+        tbl.integer('main_id').notNullable().unsigned()
+            .references('id').inTable('mainCategories')
+        tbl.string('sub_category', 128).notNullable()
     })
     .createTable('users', tbl => {
         tbl.string('UUID').notNullable().unique().primary()
@@ -27,12 +33,9 @@ exports.up = function(knex) {
         tbl.string('description', 240).notNullable()
         tbl.string('size').references('size').inTable('item_sizes')
         tbl.string('color').references('color').inTable('item_colors')
-    })
-    .createTable('items_categories', tbl => {
-        tbl.integer('item_id').notNullable().unsigned()
-            .references('id').inTable('items')
         tbl.integer('cat_id').notNullable().unsigned()
-            .references('id').inTable('catagories')
+            .references('id').inTable('subCategories')
+
     })
     .createTable('purchases', tbl => {
         tbl.increments()
@@ -49,7 +52,7 @@ exports.down = function(knex) {
     .dropTableIfExists('items_catagories')
     .dropTableIfExists('items')
     .dropTableIfExists('users')
-    .dropTableIfExists('catagories')
+    .dropTableIfExists('categories')
     .dropTableIfExists('item_colors')
     .dropTableIfExists('item_sizes')
 }

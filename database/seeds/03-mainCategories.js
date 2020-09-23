@@ -1,5 +1,5 @@
 exports.seed = function(knex) {
-    return knex('categories').insert([
+    return knex('mainCategories').insert([
         {'category': 'Kitchen'},
         {'category': 'Bath'},
         {'category': 'Bedroom'},

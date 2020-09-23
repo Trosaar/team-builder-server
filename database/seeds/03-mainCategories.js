@@ -3,9 +3,8 @@ exports.seed = function(knex) {
         {'category': 'Kitchen'},
         {'category': 'Bath'},
         {'category': 'Bedroom'},
-        {'category': 'Electronics'},
+        {'category': 'Computers'},
         {'category': 'Music'},
         {'category': 'Art'},
-
     ])
 }

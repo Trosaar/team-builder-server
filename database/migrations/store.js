@@ -28,7 +28,7 @@ exports.up = function(knex) {
     })
     .createTable('items', tbl => {
         tbl.increments()
-        tbl.integer('price').unsigned().notNullable()
+        tbl.decimal('price').unsigned().notNullable()
         tbl.string('name', 128).unique().notNullable()
         tbl.string('description', 240).notNullable()
         tbl.string('size').references('size').inTable('item_sizes')

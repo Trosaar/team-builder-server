@@ -28,7 +28,7 @@ exports.up = function(knex) {
     })
     .createTable('items', tbl => {
         tbl.increments()
-        tbl.decimal('price').unsigned().notNullable()
+        tbl.decimal('price', 2).unsigned().notNullable()
         tbl.string('name', 128).unique().notNullable()
         tbl.string('description', 240).notNullable()
         tbl.string('size').references('size').inTable('item_sizes')
@@ -42,6 +42,8 @@ exports.up = function(knex) {
         tbl.integer('user_id').unsigned().notNullable()
             .references('UUID').inTable('users')
             .onDelete('CASCADE').onUpdate('CASCADE')
+        tbl.integer('item_id').unsigned().notNullable()
+            .references('id').inTable('items')
         tbl.timestamps(true, true)
     })
 }

@@ -12,25 +12,27 @@ module.exports = {
 }
 
 function add(user) {
-    return
+    return db('users').insert(user).then(ids => {
+        return getById(ids[0])
+    })
 }
 
-function findAll(user) {
-    return
+function findAll() {
+    return db('users')
 }
 
-function getById(user) {
-    return
+function getById(id) {
+    return db('users').where({ id }).first()
 }
 
-function getBy(user) {
-    return
+function getBy(filter) {
+    return db(users).where(fitler).first()
 }
 
-function update(user) {
-    return
+function update(info, id) {
+    return db('users').where({ id }).update(info)
 }
 
-function remove(user) {
-    return
+function remove(id) {
+    return db('users').where({ id }).del()
 }

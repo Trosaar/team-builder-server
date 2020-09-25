@@ -26,7 +26,7 @@ function getById(id) {
 }
 
 function getBy(filter) {
-    return db(users).where(fitler).first()
+    return db(users).where(filter).first()
 }
 
 function update(info, id) {

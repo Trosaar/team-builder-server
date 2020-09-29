@@ -1,10 +1,16 @@
 const db = require('../database/dbConfig.js')
 
 module.exports = {
+    getCat,
     getAll,
     getById,
     update,
     remove
+}
+
+async function getCat() {
+    return db('subCategories as s')
+    .join('mainCategories as m', 'm.id', 's.main_id')
 }
 
 async function getAll() {

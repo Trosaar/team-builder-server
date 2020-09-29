@@ -1,7 +1,4 @@
-const { JsonWebTokenError } = require("jsonwebtoken");
-
 const jwt = require('JsonWebToken');
-const e = require("express");
 
 module.exports = (req, res, next) => {
     const token = req.header.authorization

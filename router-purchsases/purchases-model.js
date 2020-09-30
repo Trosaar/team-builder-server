@@ -46,3 +46,12 @@ function update(updates) {
     .where('id', req.params.id)
     .insert(updates)
 }
+
+function remove(id) {
+    return db('purchases as p')
+    .where({ id })
+    .del()
+    .then(() => {
+        return 1
+    })
+}

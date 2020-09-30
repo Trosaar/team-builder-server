@@ -26,15 +26,15 @@ async function getById(id) {
     .where(id)
 }
 
-async function update(id, updates) {
+async function update(updates) {
     return db('items')
-    .where(id)
+    .where( 'id', req.params.id)
     .insert(updates)
 }
 
 async function remove(id) {
     return db('items')
-    .where(id)
+    .where(req.params.id)
     .del()
     .then(() => {
         return getAll()

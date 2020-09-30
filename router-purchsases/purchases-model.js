@@ -38,3 +38,11 @@ function postNew(item) {
         return getByItem(ids[0])
     })
 }
+
+function update(updates) {
+    return db('purchases as p')
+    .join('users', 'users.UUID', 'p.user_id')
+    .join('items as i', 'i.id', 'p.item_id')
+    .where('id', req.params.id)
+    .insert(updates)
+}

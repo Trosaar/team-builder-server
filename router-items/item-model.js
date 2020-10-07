@@ -4,6 +4,7 @@ module.exports = {
     getCat,
     getAll,
     getById,
+    add,
     update,
     remove
 }
@@ -24,6 +25,12 @@ async function getById(id) {
     .join('item_sizes as s', 's.size', 'i.size')
     .join('item_colors as c', 'c.color', 'i.color')
     .where(id)
+}
+
+async function add(item) {
+    return db('items').insert(item).then(() => {
+        return getById(item.id)
+    })
 }
 
 async function update(updates) {

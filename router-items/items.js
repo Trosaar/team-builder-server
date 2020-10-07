@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-    const id = req.params.id
+    const id = req.params.id 
 
     try {
         const item = ItemDB.getById(id)
@@ -28,5 +28,29 @@ router.get('/:id', async (req, res) => {
         res.status(200).json({ item })
     } catch(err) {
         res.status(500).json({ error: "failed to get item"})
+    }
+})
+
+// POST new item to '/api/items/'
+router.post('/', restricted, async (req, res) => {
+    const newItem = req.body
+
+    try {
+        const addedItem = await ItemDB.add(newItem)
+        res.status(200).json(addedItem)
+    } catch(err) {
+        res.status(500).json({ message: "Failed to add the item to the database.", err })
+    }
+})
+
+router.put('/:id', restricted, async (req, res) => {
+    const id = req.params.id
+    const updates = req.body
+
+    try {
+        const updatedItem = await ItemDB.update(id, updates)
+        res.status(200).json(updatedItem)
+    } catch(err) {
+        res.status(500).json({ message: "Failed to update the item", err })
     }
 })

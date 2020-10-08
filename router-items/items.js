@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const ItemDB = require('./item-model.js')
-const jwt = require('jsonwebtoken')
 const restricted = require('../router-auth/restricted')
 
 
@@ -51,7 +50,7 @@ router.put('/:id', restricted, async (req, res) => {
 
     try {
         const updatedItem = await ItemDB.update(id, updates)
-        res.status(200).json(updatedItem)
+        res.status(201).json(updatedItem)
     } catch(err) {
         res.status(500).json({ message: "Failed to update the item", err })
     }

@@ -1,5 +1,5 @@
 const express = require('express')
-const router - express.Router()
+const router = express.Router()
 const ItemDB = require('./item-model.js')
 const jwt = require('jsonwebtoken')
 const restricted = require('../router-auth/restricted')
@@ -43,6 +43,8 @@ router.post('/', restricted, async (req, res) => {
     }
 })
 
+
+//PUT update item to '/api/items/id'
 router.put('/:id', restricted, async (req, res) => {
     const id = req.params.id
     const updates = req.body
@@ -52,5 +54,23 @@ router.put('/:id', restricted, async (req, res) => {
         res.status(200).json(updatedItem)
     } catch(err) {
         res.status(500).json({ message: "Failed to update the item", err })
+    }
+})
+
+router.delete('/:id', restricted, async (req, res) => {
+    const id = req.params
+
+    try {
+        const delItemCount = await ItemDB.remove(id)
+        
+        if(!delItemCount) {
+            res.status(404).json({
+                message: `Could not find the id ${id}`
+            })
+        } else {
+            res.status(200).json(delItemCount)
+        }
+    } catch(err) {
+        res.status(500).json({ message: "Failed to delete item", err })
     }
 })

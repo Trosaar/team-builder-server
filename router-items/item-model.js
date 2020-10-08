@@ -33,9 +33,9 @@ async function add(item) {
     })
 }
 
-async function update(updates) {
+async function update(id, updates) {
     return db('items')
-    .where( 'id', req.params.id)
+    .where( id, req.params.id)
     .insert(updates)
 }
 

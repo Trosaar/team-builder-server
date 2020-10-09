@@ -13,6 +13,18 @@ router.get('/test', restricted, async(req, res) => {
     })
 })
 
+router.get('/:id', restricted, async(req, res) => {
+    const id = req.params.id
+
+    try {
+        const purchase = await PurchasesDB.getbyID(id)
+
+        res.status(200).json(purchase)
+    } catch(err) {
+        res.status(500).json({ message: "Failed to get purchase", err})
+    }
+})
+
 router.get('/item/:id', restricted, async(req, res) => {
     const itemID = req.params
 
@@ -42,10 +54,24 @@ router.post('/', restricted, async(req, res) => {
     const newPurchase = req.body
 
     try {
-        const addedPurchase = PurchasesDB.postNew(newPurchase)
+        const addedPurchase = await PurchasesDB.postNew(newPurchase)
 
         res.status(200).json(addedPurchase)
     } catch(err) {
         res.status(500).json({ message: "Failed to finalize purchase", err })
+    }
+})
+
+router.put('/:id', restricted, async(req, res) => {
+    const update = req.body
+    const id = req.params.id
+
+    try {
+        await PurchasesDB.update(update)
+        const updatedPurchase = await PurchasesDB.getByID(id)
+        
+        res.status(201).json(updatedPurchase)
+    } catch(err) {
+        res.status(500).json({ message: "Failed to update purchase", err })
     }
 })

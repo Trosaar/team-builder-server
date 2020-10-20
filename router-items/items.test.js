@@ -36,11 +36,24 @@ describe('items routes', () => {
 
     describe('PUT to items', () => {
         it('should return the updated item', () => {
+            const testUpdate = {
 
+            }
+
+            request(server).put('/api/items/:id')
+            .send(testUpdate).then(res => {
+                expect(res.status).toBe(201)
+            })
         })
     })
 
     describe('DELETE to items', () => {
-        it('should return a number 1 from /:id')
+        it('should return a number 1 from /:id', () => {
+
+            request(server).delete('/api/items/:id')
+            then(res => {
+                expect(res.status).toBe(200)
+            })
+        })
     })
 })

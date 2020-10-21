@@ -1,11 +1,11 @@
-const { request } = require("express");
-
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js');
 
 describe('items routes', () => {
-    beforeEach( db('items').truncate() )
+    beforeEach( async () => {
+        await db('items').truncate()
+    })
 
     describe('GET to items', () => {
         it('should return all item from /', () => {
@@ -57,3 +57,5 @@ describe('items routes', () => {
         })
     })
 })
+
+// need test items

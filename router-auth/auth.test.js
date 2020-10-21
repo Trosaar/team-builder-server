@@ -4,7 +4,9 @@ const db = require('../database/dbConfig.js')
 const { expectCt } = require('helmet')
 
 describe('Auth Router', () => {
-    beforeEach( db('users').truncate() )
+    beforeEach( async () => {
+        await db('users').truncate()
+    })
 
 
     describe('GET to auth', () => {

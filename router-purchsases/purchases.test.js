@@ -1,8 +1,6 @@
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
-const itemModel = require('../router-items/item-model.js')
-const { expectCt } = require('helmet')
 
 describe('purchases routes', () => {
     beforeEach( async() => {

@@ -73,3 +73,5 @@ router.delete('/:id', restricted, async (req, res) => {
         res.status(500).json({ message: "Failed to delete item", err })
     }
 })
+
+module.exports = router

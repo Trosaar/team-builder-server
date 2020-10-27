@@ -51,7 +51,7 @@ describe('items routes', () => {
         it('should return a number 1 from /:id', () => {
 
             request(server).delete('/api/items/:id')
-            then(res => {
+            .then(res => {
                 expect(res.status).toBe(200)
             })
         })

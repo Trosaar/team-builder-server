@@ -1,7 +1,6 @@
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
-const { expectCt } = require('helmet')
 
 describe('Auth Router', () => {
     beforeEach( async () => {

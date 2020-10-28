@@ -2,7 +2,7 @@ const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js');
 
-describe('items routes', () => {
+xdescribe('items routes', () => {
     beforeEach( async () => {
         await db('items').truncate()
     })

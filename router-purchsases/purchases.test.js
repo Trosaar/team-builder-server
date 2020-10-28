@@ -2,7 +2,7 @@ const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
 
-describe('purchases routes', () => {
+xdescribe('purchases routes', () => {
     beforeEach( async() => {
         await db('purchases').truncate()
     })

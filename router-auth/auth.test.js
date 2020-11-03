@@ -8,29 +8,29 @@ describe('Auth Router', () => {
     })
 
 
-    describe('GET to auth', () => {
+    xdescribe('GET to auth', () => {
         it('should return a list of all users if logged in', () => {
-            request(server).get('/api/').then(res => {
-                expect(res.status).toBe(401)
+            request(server).get('/api/auth').auth('username', 'password').then(res => {
+                expect(res).toBe(401)
             })
         })
     })
 
-    xdescribe('POST to auth', ()=> {
-        it('should return the token for a new user', () => {
+    describe('POST to auth', ()=> {
+        it('should return the token for a new user', async () => {
             const user = {
                 username: "test",
                 password: "testpass"
             }
 
-            request(server).post('/api/register')
+            await request(server).post('/api/auth/register')
             .send(user).then(res => {
                 expect(res.status).toBe(201)
                 expect(res.body.username).toBe("test")
             })
         })
 
-        it('should return a token for existing user', () => {
+        xit('should return a token for existing user', () => {
             const user = {
                 username: "test",
                 password: "testpass"

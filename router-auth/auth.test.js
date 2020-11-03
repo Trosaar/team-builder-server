@@ -16,7 +16,7 @@ describe('Auth Router', () => {
         })
     })
 
-    describe('POST to auth', ()=> {
+    xdescribe('POST to auth', ()=> {
         it('should return the token for a new user', () => {
             const user = {
                 username: "test",

@@ -4,12 +4,10 @@ exports.up = function(knex) {
     .createTable('item_sizes', tbl => {
         tbl.increments()
         tbl.string('size', 128).notNullable().unique()
-            .onDelete('CASCADE').onUpdate('CASCADE')
     })
     .createTable('item_colors', tbl => {
         tbl.increments()
         tbl.string('color', 128).notNullable().unique()
-            .onDelete('CASCADE').onUpdate('CASCADE')
     })
     .createTable('mainCategories', tbl => {
         tbl.increments()

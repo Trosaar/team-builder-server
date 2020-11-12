@@ -1,9 +1,7 @@
-import {v4 as uuidv4} from 'uuid'
-
 exports.seed = function(knex) {
 	return knex('users').insert([
-		{'UUID': uuidv4(), 'username': "Sunda", 'password': 'pass1' },
-		{'UUID': uuidv4(), 'username': "Plat", 'password': 'pass2' }, 
-		{'UUID': uuidv4(), 'username': "Cham", 'password': 'pass3' }, 
+		{'UUID': "1", 'username': "Sunda", 'password': 'pass1' },
+		{'UUID': "2", 'username': "Plat", 'password': 'pass2' }, 
+		{'UUID': "3", 'username': "Cham", 'password': 'pass3' }, 
   ]);
 };

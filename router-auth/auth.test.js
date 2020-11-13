@@ -25,7 +25,7 @@ describe('Auth Router', () => {
 
             await request(server).post('/api/auth/register')
             .send(user).then(res => {
-                expect(res.status).toBe(201)
+                expect(res.status).toBe(20)
                 expect(res.body.username).toBe("test")
             })
         })

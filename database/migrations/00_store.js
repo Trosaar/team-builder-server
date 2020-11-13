@@ -29,8 +29,8 @@ exports.up = function(knex) {
         tbl.decimal('price', 2).unsigned().notNullable()
         tbl.string('name', 128).unique().notNullable()
         tbl.string('description', 240).notNullable()
-        tbl.string('size').references('size').inTable('item_sizes')
-        tbl.string('color').references('color').inTable('item_colors')
+        tbl.string('size').references('id').inTable('item_sizes')
+        tbl.string('color').references('id').inTable('item_colors')
         tbl.integer('cat_id').notNullable().unsigned()
             .references('id').inTable('subCategories')
 

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const AuthDB = require('./auth-model.js')
 const restrictedMid = require('./restricted.js')
+const { v4: uuidv4 } = require('uuid');
 
 // get post put delete
 // Read Create Update Delete
@@ -39,8 +40,9 @@ router.post('/register', async (req, res) => {
     const userInfo = req.body
 
     try {
-        userInfo.password = bcrypt.hashSync(userInfo.password, 15)
-
+         userInfo.password = await bcrypt.hashSync(userInfo.password, 15)
+         userInfo.UUID = await uuidv4()
+        
         const newUser = await AuthDB.add(userInfo)
         const token = generateToken(newUser)
 

@@ -13,7 +13,7 @@ module.exports = {
 
 function add(user) {
     return db('users').insert(user).then(ids => {
-        return getById(ids[0])
+        return getById(user.UUID)
     })
 }
 
@@ -21,18 +21,18 @@ function findAll() {
     return db('users')
 }
 
-function getById(id) {
-    return db('users').where({ id }).first()
+function getById(UUID) {
+    return db('users').where({ UUID }).first()
 }
 
 function getBy(filter) {
     return db(users).where(filter).first()
 }
 
-function update(info, id) {
-    return db('users').where({ id }).update(info)
+function update(info, UUID) {
+    return db('users').where({ UUID }).update(info)
 }
 
-function remove(id) {
-    return db('users').where({ id }).del()
+function remove(UUID) {
+    return db('users').where({ UUID }).del()
 }

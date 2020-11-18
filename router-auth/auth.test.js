@@ -1,6 +1,7 @@
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
+// const chai = require('chai)
 
 describe('Auth Router', () => {
     beforeEach( async () => {
@@ -25,7 +26,13 @@ describe('Auth Router', () => {
 
             await request(server).post('/api/auth/register')
             .send(user).then(res => {
-                expect(res.body).toBe("test")
+                expect(res.body.newUser.username).toBe("test")
+                if("token" in res.body) {
+                    tokenCheck = true
+                } else {
+                    tokenCheck = false
+                }
+                expect(res.body.token).toBeTrue()
             })
         })
 

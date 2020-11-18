@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 
 function generateToken(user) {
     const paylaod  = {
-        id: user.id,
+        id: user.UUID,
         username: user.username
     }
 
@@ -44,10 +44,12 @@ router.post('/register', async (req, res) => {
          userInfo.UUID = await uuidv4()
         
         const newUser = await AuthDB.add(userInfo)
-        const token = generateToken(newUser)
+        const token = await generateToken(newUser)
+
+        console.log(token)
 
         res.status(201).json({
-            new_user: newUser,
+            newUser,
             token
         })
 

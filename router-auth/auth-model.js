@@ -26,7 +26,7 @@ function getById(UUID) {
 }
 
 function getBy(filter) {
-    return db(users).where(filter).first()
+    return db('users').where( filter ).first()
 }
 
 function update(info, UUID) {

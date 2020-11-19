@@ -46,8 +46,6 @@ router.post('/register', async (req, res) => {
         const newUser = await AuthDB.add(userInfo)
         const token = await generateToken(newUser)
 
-        console.log(token)
-
         res.status(201).json({
             newUser,
             token
@@ -68,9 +66,11 @@ router.post('/login', async (req, res) => {
         const user = await AuthDB.getBy({ username })
 
         if(user && bcrypt.compareSync(password, user.password)) {
-            const token = generateToken(user)
+            const token = await generateToken(user)
+            const ID = user.UUID
             res.status(200).json({
                 message: `Welcome ${user.username}`,
+                ID,
                 token
             })
         } else {

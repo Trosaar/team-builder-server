@@ -1,18 +1,20 @@
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
+// const { expect } = require('chai')
 // const chai = require('chai)
 
 describe('Auth Router', () => {
-    beforeEach( async () => {
+    beforeAll( async () => {
         await db('users').truncate()
     })
 
 
-    xdescribe('GET to auth', () => {
-        it('should return a list of all users if logged in', () => {
+    describe('GET to auth', () => {
+        it('should be resitricted', () => {
             request(server).get('/api/auth').auth('username', 'password').then(res => {
-                expect(res).toBe(401)
+                expect(res.status).toBe(401)
+                expect(res.text).toBeTruthy()
             })
         })
     })
@@ -27,25 +29,20 @@ describe('Auth Router', () => {
             await request(server).post('/api/auth/register')
             .send(user).then(res => {
                 expect(res.body.newUser.username).toBe("test")
-                if("token" in res.body) {
-                    tokenCheck = true
-                } else {
-                    tokenCheck = false
-                }
-                expect(res.body.token).toBeTrue()
+                expect(res.body.token).toBeTruthy()
             })
         })
 
-        xit('should return a token for existing user', () => {
+        it('should return a token for existing user', async () => {
             const user = {
                 username: "test",
                 password: "testpass"
             }
             
-            request(server).post('/api/login')
+            await request(server).post('/api/auth/login')
             .send(user).then(res => {
                 expect(res.status).toBe(200)
-                expect(res.body).toContain(token)
+                expect(res.body.token).toBeTruthy()
             })
         })
     })

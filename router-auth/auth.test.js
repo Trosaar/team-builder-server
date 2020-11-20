@@ -11,8 +11,8 @@ describe('Auth Router', () => {
 
 
     describe('GET to auth', () => {
-        it('should be resitricted', () => {
-            request(server).get('/api/auth').auth('username', 'password').then(res => {
+        it('should be resitricted', async () => {
+            await request(server).get('/api/auth').auth('username', 'password').then(res => {
                 expect(res.status).toBe(401)
                 expect(res.text).toBeTruthy()
             })

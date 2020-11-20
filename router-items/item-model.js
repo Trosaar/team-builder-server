@@ -28,6 +28,7 @@ async function getById(id) {
 }
 
 async function add(item) {
+    console.log(item)
     return db('items').insert(item).then(() => {
         return getById(item.id)
     })

@@ -2,45 +2,60 @@ const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js');
 
-xdescribe('items routes', () => {
-    beforeEach( async () => {
+describe('items routes', () => {
+    beforeAll( async () => {
         await db('items').truncate()
     })
 
     describe('GET to items', () => {
-        it('should return all item from /', () => {
-            request(server).get('/api/items').then(res => {
+        it('should return all item from /', async () => {
+            await request(server).get('/api/items').then(res => {
                 expect(res.status).toBe(200)
+                expect(res.body.categories).toBeTruthy()
+                expect(res.body.items).toBeTruthy()
             })
         })
 
-        it('should return one item from /:id', () => {
-            request(server).get('/api/items/:id').then(res => {
+        it('should return one item from /:id', async () => {
+            await request(server).get('/api/items/:id').then(res => {
                 expect(res.status).toBe(200)
+                expect(res.body.item).toBeTruthy()
             })
         })
     })
 
     describe('POST to items', () => {
-        it('should return added item from /', () => {
+        it('should return added item from /', async () => {
             const testItem = {
-                
+                "price": 99.99,
+                "name": "something ",
+                "description": "Only the BEST thing",
+                "size": 1,
+                "color": 1,
+                "cat_id": 1
             }
+
+            const user = {
+                username: "test",
+                password: "testpass"
+            }
+
             
-            request(server).post('/api/items')
+            await request(server).post('/api/items').auth(user)
             .send(testItem).then(res => {
+                console.log(res)
                 expect(res.status).toBe(201)
             })
         })
     })
 
     describe('PUT to items', () => {
-        it('should return the updated item', () => {
+        it('should return the updated item', async() => {
             const testUpdate = {
 
             }
 
-            request(server).put('/api/items/:id')
+            await request(server).put('/api/items/:id')
             .send(testUpdate).then(res => {
                 expect(res.status).toBe(201)
             })
@@ -48,9 +63,8 @@ xdescribe('items routes', () => {
     })
 
     describe('DELETE to items', () => {
-        it('should return a number 1 from /:id', () => {
-
-            request(server).delete('/api/items/:id')
+        it('should return a number 1 from /:id', async () => {
+            await request(server).delete('/api/items/:id')
             .then(res => {
                 expect(res.status).toBe(200)
             })

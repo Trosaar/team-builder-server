@@ -40,6 +40,7 @@ describe('items routes', () => {
                 password: "testpass"
             }
 
+            // needs authenitication
             
             await request(server).post('/api/items').auth(user)
             .send(testItem).then(res => {

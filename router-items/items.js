@@ -34,8 +34,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', restricted, async (req, res) => {
     const newItem = req.body
 
-    console.log(newItem)
-
     try {
         const addedItem = await ItemDB.add(newItem)
         res.status(201).json(addedItem)

@@ -3,8 +3,18 @@ const request = require('supertest')
 const db = require('../database/dbConfig.js');
 
 describe('items routes', () => {
+    authInfo = {
+        username: "itemstest",
+        password: "itempass"    }
+
     beforeAll( async () => {
         await db('items').truncate()
+
+        await request(server).post('/api/auth/register')
+            .send(authInfo).then(res => {
+                authInfo.id = res.body.newUser.UUID
+                authInfo.token = res.body.token
+            })
     })
 
     describe('GET to items', () => {
@@ -34,15 +44,8 @@ describe('items routes', () => {
                 "color": 1,
                 "cat_id": 1
             }
-
-            const user = {
-                username: "test",
-                password: "testpass"
-            }
-
-            // needs authenitication
             
-            await request(server).post('/api/items').auth(user)
+            await request(server).post('/api/items').auth(authInfo.token)
             .send(testItem).then(res => {
                 console.log(res)
                 expect(res.status).toBe(201)

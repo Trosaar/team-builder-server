@@ -7,8 +7,8 @@ const restricted = require('../router-auth/restricted')
 // GET to '/apt/items/'
 router.get('/', async (req, res) => {
     try{
-        const categories = ItemDB.getCat()
-        const items = ItemDB.getAll()
+        const categories = await ItemDB.getCat()
+        const items = await ItemDB.getAll()
 
         res.status(200).json({ categories, items })
     } catch(err) {
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id 
 
     try {
-        const item = ItemDB.getById(id)
+        const item = await ItemDB.getById(id)
 
         res.status(200).json({ item })
     } catch(err) {

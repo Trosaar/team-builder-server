@@ -10,6 +10,8 @@ describe('items routes', () => {
     beforeAll( async () => {
         await db('items').truncate()
 
+        await db('users').truncate()
+
         await request(server).post('/api/auth/register')
             .send(authInfo).then(res => {
                 authInfo.id = res.body.newUser.UUID
@@ -45,9 +47,11 @@ describe('items routes', () => {
                 "cat_id": 1
             }
             
-            await request(server).post('/api/items').auth(authInfo.token)
+            console.log(authInfo.token)
+
+            await request(server).post('/api/items').set('authorization', authInfo.token)
+            .set('Accept', 'application/json')
             .send(testItem).then(res => {
-                console.log(res)
                 expect(res.status).toBe(201)
             })
         })

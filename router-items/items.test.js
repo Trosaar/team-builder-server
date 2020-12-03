@@ -19,23 +19,6 @@ describe('items routes', () => {
             })
     })
 
-    describe('GET to items', () => {
-        it('should return all item from /', async () => {
-            await request(server).get('/api/items').then(res => {
-                expect(res.status).toBe(200)
-                expect(res.body.categories).toBeTruthy()
-                expect(res.body.items).toBeTruthy()
-            })
-        })
-
-        it('should return one item from /:id', async () => {
-            await request(server).get('/api/items/:id').then(res => {
-                expect(res.status).toBe(200)
-                expect(res.body.item).toBeTruthy()
-            })
-        })
-    })
-
     describe('POST to items', () => {
         it('should return added item from /', async () => {
             const testItem = {
@@ -57,7 +40,24 @@ describe('items routes', () => {
         })
     })
 
-    describe('PUT to items', () => {
+    xdescribe('GET to items', () => {
+        it('should return all item from /', async () => {
+            await request(server).get('/api/items').then(res => {
+                expect(res.status).toBe(200)
+                expect(res.body.categories).toBeTruthy()
+                expect(res.body.items).toBeTruthy()
+            })
+        })
+
+        it('should return one item from /:id', async () => {
+            await request(server).get('/api/items/:id').then(res => {
+                expect(res.status).toBe(200)
+                expect(res.body.item).toBeTruthy()
+            })
+        })
+    })
+
+    xdescribe('PUT to items', () => {
         it('should return the updated item', async() => {
             const testUpdate = {
 
@@ -70,7 +70,7 @@ describe('items routes', () => {
         })
     })
 
-    describe('DELETE to items', () => {
+    xdescribe('DELETE to items', () => {
         it('should return a number 1 from /:id', async () => {
             await request(server).delete('/api/items/:id')
             .then(res => {

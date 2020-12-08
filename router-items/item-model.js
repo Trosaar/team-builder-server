@@ -28,8 +28,8 @@ async function getById(id) {
 }
 
 async function add(item) {
-    return db('items').insert(item).then(() => {
-        return getById(item.id)
+    return db('items').insert(item).then(ids => {
+        return getAll()
     })
 }
 

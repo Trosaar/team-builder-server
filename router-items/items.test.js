@@ -30,11 +30,12 @@ describe('items routes', () => {
                 "cat_id": 1
             }
             
-            console.log(authInfo.token)
-
             await request(server).post('/api/items').set('authorization', authInfo.token)
             .set('Accept', 'application/json')
             .send(testItem).then(res => {
+
+                console.log(res.body)
+
                 expect(res.status).toBe(201)
             })
         })

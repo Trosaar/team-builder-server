@@ -21,6 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const id = req.params.id
     
+    console.log(id)
     try {
         const item = await ItemDB.getById(id)
 

@@ -34,14 +34,15 @@ describe('items routes', () => {
             .set('Accept', 'application/json')
             .send(testItem).then(res => {
 
-                console.log(res.body)
-
                 expect(res.status).toBe(201)
+                expect(res.body.length).toBe(1)
+                expect(res.body[0].id).toBe(1)
             })
         })
     })
 
-    xdescribe('GET to items', () => {
+    describe('GET to items', () => {
+
         it('should return all item from /', async () => {
             await request(server).get('/api/items').then(res => {
                 expect(res.status).toBe(200)
@@ -51,7 +52,8 @@ describe('items routes', () => {
         })
 
         it('should return one item from /:id', async () => {
-            await request(server).get('/api/items/:id').then(res => {
+            await request(server).get('/api/items/1').then(res => {
+                console.log(res.body)
                 expect(res.status).toBe(200)
                 expect(res.body.item).toBeTruthy()
             })

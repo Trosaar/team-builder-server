@@ -53,22 +53,32 @@ describe('items routes', () => {
 
         it('should return one item from /:id', async () => {
             await request(server).get('/api/items/1').then(res => {
-                console.log(res.body)
                 expect(res.status).toBe(200)
                 expect(res.body.item).toBeTruthy()
+                expect(res.body.item.id).toBe(1)
             })
         })
     })
 
-    xdescribe('PUT to items', () => {
+    describe('PUT to items', () => {
         it('should return the updated item', async() => {
             const testUpdate = {
-
+                "id": 1,
+                "price": 88.88,
+                "name": "something else",
+                "description": "Only the BEST thing ever",
+                "size": 1,
+                "color": 1,
+                "cat_id": 1
             }
 
-            await request(server).put('/api/items/:id')
+            await request(server).put('/api/items/1').set('authorization', authInfo.token)
             .send(testUpdate).then(res => {
+
+                console.log(res.body)
+
                 expect(res.status).toBe(201)
+                expect(res.body.item.price).toBe(88.88)
             })
         })
     })
@@ -82,5 +92,3 @@ describe('items routes', () => {
         })
     })
 })
-
-// need test items

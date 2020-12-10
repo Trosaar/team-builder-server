@@ -20,11 +20,11 @@ async function getAll() {
     .select('i.id', 'i.price', 'i.size', 'i.color', 'i.cat_id')
 }
 
-async function getById(id) {
+async function getById(itemID) {
     return db('items as i')
-    .join('item_sizes as s', 's.size', 'i.size')
-    .join('item_colors as c', 'c.color', 'i.color')
-    .where(id)
+    // .join('item_sizes as s', 's.size', 'i.size')
+    // .join('item_colors as c', 'c.color', 'i.color')
+    .where({ id: itemID })
 }
 
 async function add(item) {
@@ -35,7 +35,7 @@ async function add(item) {
 
 async function update(id, updates) {
     return db('items')
-    .where( id, req.params.id)
+    .where( {id} )
     .insert(updates)
 }
 

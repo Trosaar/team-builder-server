@@ -36,7 +36,10 @@ async function add(item) {
 async function update(id, updates) {
     return db('items')
     .where( {id} )
-    .insert(updates)
+    .update(updates)
+    .then( () => {
+        return getById(id)
+    })
 }
 
 async function remove(id) {

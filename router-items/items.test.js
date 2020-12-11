@@ -63,9 +63,8 @@ describe('items routes', () => {
     describe('PUT to items', () => {
         it('should return the updated item', async() => {
             const testUpdate = {
-                "id": 1,
                 "price": 88.88,
-                "name": "something else",
+                "name": "something other than else",
                 "description": "Only the BEST thing ever",
                 "size": 1,
                 "color": 1,
@@ -73,12 +72,12 @@ describe('items routes', () => {
             }
 
             await request(server).put('/api/items/1').set('authorization', authInfo.token)
-            .send(testUpdate).then(res => {
+            .send(1).send(testUpdate).then(res => {
 
                 console.log(res.body)
 
                 expect(res.status).toBe(201)
-                expect(res.body.item.price).toBe(88.88)
+                expect(res.body[0].price).toBe(88.88)
             })
         })
     })

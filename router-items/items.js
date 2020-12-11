@@ -51,8 +51,14 @@ router.put('/:id', restricted, async (req, res) => {
 
     try {
         const updatedItem = await ItemDB.update(id, updates)
+
+        console.log(updatedItem)
+
         res.status(201).json(updatedItem)
     } catch(err) {
+
+        console.log(err)
+
         res.status(500).json({ message: "Failed to update the item", err })
     }
 })

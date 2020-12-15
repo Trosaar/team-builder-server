@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
     try {
         const item = await ItemDB.getById(id)
 
-        res.status(200).json({ item })
+        res.status(200).json(item)
     } catch(err) {
         res.status(500).json({ error: "failed to get item"})
     }
@@ -52,8 +52,6 @@ router.put('/:id', restricted, async (req, res) => {
     try {
         const updatedItem = await ItemDB.update(id, updates)
 
-        console.log(updatedItem)
-
         res.status(201).json(updatedItem)
     } catch(err) {
 
@@ -64,7 +62,7 @@ router.put('/:id', restricted, async (req, res) => {
 })
 
 router.delete('/:id', restricted, async (req, res) => {
-    const id = req.params
+    const id = req.params.id
 
     try {
         const delItemCount = await ItemDB.remove(id)

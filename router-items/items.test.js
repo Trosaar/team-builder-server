@@ -53,9 +53,10 @@ describe('items routes', () => {
 
         it('should return one item from /:id', async () => {
             await request(server).get('/api/items/1').then(res => {
+
                 expect(res.status).toBe(200)
-                expect(res.body.item).toBeTruthy()
-                expect(res.body.item.id).toBe(1)
+                expect(res.body[0].name).toBeTruthy()
+                expect(res.body[0].id).toBe(1)
             })
         })
     })
@@ -74,17 +75,15 @@ describe('items routes', () => {
             await request(server).put('/api/items/1').set('authorization', authInfo.token)
             .send(1).send(testUpdate).then(res => {
 
-                console.log(res.body)
-
                 expect(res.status).toBe(201)
                 expect(res.body[0].price).toBe(88.88)
             })
         })
     })
 
-    xdescribe('DELETE to items', () => {
+    describe('DELETE to items', () => {
         it('should return a number 1 from /:id', async () => {
-            await request(server).delete('/api/items/:id')
+            await request(server).delete('/api/items/1').set('authorization', authInfo.token)
             .then(res => {
                 expect(res.status).toBe(200)
             })

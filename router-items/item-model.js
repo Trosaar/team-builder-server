@@ -44,7 +44,7 @@ async function update(id, updates) {
 
 async function remove(id) {
     return db('items')
-    .where(req.params.id)
+    .where({id})
     .del()
     .then(() => {
         return getAll()

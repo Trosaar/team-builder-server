@@ -2,26 +2,26 @@ const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
 
-xdescribe('purchases routes', () => {
+describe('purchases routes', () => {
     beforeEach( async() => {
         await db('purchases').truncate()
     })
 
     describe('GET to purchases', () => {
-        it('should return all purchases from /', () => {
-            request(server).get('/api/purchases').then(res => {
+        it('should return all purchases from /', async () => {
+            await request(server).get('/api/purchases/test').then(res => {
                 expect(res.status).toBe(200)
             })
         })
 
-        it('should return a single purchase from /:id', () => {
+        xit('should return a single purchase from /:id', () => {
             request(server).get('/api/purchases/:id').then(res => {
                 expect(res.status).toBe(200)
             })
         })
     })
 
-    describe('POST to purchases', () => {
+    xdescribe('POST to purchases', () => {
         it('should return added purchase', () => {
             const newPurchase = {
                 // fill in
@@ -33,7 +33,7 @@ xdescribe('purchases routes', () => {
         })
     })
 
-    describe('PUT to purchases', () => {
+    xdescribe('PUT to purchases', () => {
         it('should return updated purchase from /:id', () => {
             const updates = {
                 // fill in
@@ -45,7 +45,7 @@ xdescribe('purchases routes', () => {
         })
     })
 
-    describe('DELETE to purchases', () => {
+    xdescribe('DELETE to purchases', () => {
         it('should return a number 1 from /:id', () => {
             request(server).delete('/api/purchases/:id').then(res => {
                 expect(res.status).toBe(200)

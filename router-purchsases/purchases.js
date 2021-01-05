@@ -6,11 +6,13 @@ const restricted = require('../router-auth/restricted')
 // GET to '/api/purchases/test'
 // 
 router.get('/test', restricted, async(req, res) => {
-    PurchasesDB.getAll().then(purchases => {
+    try {
+        const purchases = await PurchasesDB.getAll()
+
         res.status(200).json(purchases)
-    }).catch(err => {
+    } catch(err) {
         res.status(500).json({ message: "Failed to get purchases"})
-    })
+    }
 })
 
 router.get('/:id', restricted, async(req, res) => {

@@ -19,6 +19,23 @@ describe('items routes', () => {
             })
     })
 
+    afterAll( async () => {
+
+        // item for purchases testing
+        const testItem = {
+            "price": 99.99,
+            "name": "something ",
+            "description": "Only the BEST thing",
+            "size": 1,
+            "color": 1,
+            "cat_id": 1
+        }
+        
+        await request(server).post('/api/items').set('authorization', authInfo.token)
+        .set('Accept', 'application/json')
+        .send(testItem)
+    })
+
     describe('POST to items', () => {
         it('should return added item from /', async () => {
             const testItem = {

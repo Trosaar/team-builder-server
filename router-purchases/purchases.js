@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const PurchasesDB = require('./purchases-model.js')
 const restricted = require('../router-auth/restricted')
+const { v5: uuidv5} = require('uuid');
 
 // GET to '/api/purchases/test'
 // 
@@ -54,7 +55,10 @@ router.get('/user/:id', restricted, async(req, res) => {
 
 router.post('/', restricted, async(req, res) => {
     const newPurchase = req.body
+    newPurchase.id = uuidv5("user", newPurchase.user_id)
 
+    console.log(newPurchase)
+    
     try {
         const addedPurchase = await PurchasesDB.postNew(newPurchase)
 

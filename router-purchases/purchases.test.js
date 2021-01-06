@@ -1,13 +1,44 @@
 const server = require('../api/server.js')
 const request = require('supertest')
 const db = require('../database/dbConfig.js')
+const { getBy } = require('../router-auth/auth-model.js')
 
 describe('purchases routes', () => {
+    authInfo = {
+        username: "purchasestest",
+        password: "purchasespass"    }
+
     beforeAll( async() => {
         await db('purchases').truncate()
+
+        await db('users').truncate()
+
+        await db('items').truncate()
+
+        await request(server).post('/api/auth/register')
+        .send(authInfo).then(res => {
+            authInfo.id = res.body.newUser.UUID
+            authInfo.token = res.body.token
+        })        
     })
 
-    describe('GET to purchases', () => {
+    // add/create new purchase
+    describe('POST to purchases', () => {
+        it('should return added purchase', async () => {
+            const newPurchase = {
+                "user_id": authInfo.id,
+                "item_id": 2
+            }
+
+            await request(server).post('/api/purchases').set('authorization', authInfo.token)
+            .send(newPurchase).then(res => {
+                console.log(res.body)
+                expect(res.status).tobe(200)
+            })
+        })
+    })
+    
+    xdescribe('GET to purchases', () => {
         // get all purchase history
         it('should return all purchases from /', async () => {
             await request(server).get('/api/purchases/test').then(res => {
@@ -19,19 +50,6 @@ describe('purchases routes', () => {
         xit('should return a single purchase from /:id', async () => {
             request(server).get('/api/purchases/:id').then(res => {
                 expect(res.status).toBe(200)
-            })
-        })
-    })
-
-    // add/create new purchase
-    xdescribe('POST to purchases', () => {
-        it('should return added purchase', async () => {
-            const newPurchase = {
-                // fill in
-            }
-
-            request(server).post('/api/purchases').send(newPurchase).then(res => {
-                expect(res.status).tobe(200)
             })
         })
     })

@@ -6,7 +6,7 @@ require('dotenv').config()
 //routes
 const itemsRouter = require('../router-items/items.js')
 const authRouter = require('../router-auth/auth.js')
-const purchasesRouter = require('../router-purchases/auth.js')
+const purchasesRouter = require('../router-purchases/purchases.js')
 
 const server = express()
 

@@ -11,8 +11,6 @@ describe('purchases routes', () => {
         // get all purchase history
         it('should return all purchases from /', async () => {
             await request(server).get('/api/purchases/test').then(res => {
-                console.log(res.body)
-                console.log(res.error)
                 expect(res.status).toBe(200)
             })
         })

@@ -13,8 +13,6 @@ describe('purchases routes', () => {
 
         await db('users').truncate()
 
-        await db('items').truncate()
-
         await request(server).post('/api/auth/register')
         .send(authInfo).then(res => {
             authInfo.id = res.body.newUser.UUID
@@ -33,6 +31,7 @@ describe('purchases routes', () => {
             await request(server).post('/api/purchases').set('authorization', authInfo.token)
             .send(newPurchase).then(res => {
                 console.log(res.body)
+                console.log(res.error)
                 expect(res.status).tobe(200)
             })
         })

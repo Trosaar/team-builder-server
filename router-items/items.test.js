@@ -17,23 +17,20 @@ describe('items routes', () => {
                 authInfo.id = res.body.newUser.UUID
                 authInfo.token = res.body.token
             })
-    })
 
-    afterAll( async () => {
 
-        // item for purchases testing
+        // test item for purchases
         const testItem = {
-            "price": 99.99,
-            "name": "something ",
-            "description": "Only the BEST thing",
+            "price": 9.00,
+            "name": "something for purchases",
+            "description": "The good stuff",
             "size": 1,
             "color": 1,
             "cat_id": 1
         }
         
         await request(server).post('/api/items').set('authorization', authInfo.token)
-        .set('Accept', 'application/json')
-        .send(testItem)
+        .set('Accept', 'application/json').send(testItem)
     })
 
     describe('POST to items', () => {
@@ -52,7 +49,7 @@ describe('items routes', () => {
             .send(testItem).then(res => {
 
                 expect(res.status).toBe(201)
-                expect(res.body.length).toBe(1)
+                expect(res.body.length).toBe(2)
                 expect(res.body[0].id).toBe(1)
             })
         })

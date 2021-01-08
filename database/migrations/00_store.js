@@ -36,7 +36,8 @@ exports.up = function(knex) {
 
     })
     .createTable('purchases', tbl => {
-        tbl.integer('UUID').primary().notNullable()
+        tbl.increments()
+        tbl.string('UUID').notNullable()
         tbl.integer('user_id').unsigned().notNullable()
             .references('UUID').inTable('users')
             .onDelete('CASCADE').onUpdate('CASCADE')

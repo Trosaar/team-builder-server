@@ -32,7 +32,7 @@ describe('purchases routes', () => {
             .send(newPurchase).then(res => {
                 console.log(res.body)
                 console.log(res.error)
-                expect(res.status).tobe(200)
+                expect(res.status).toBe(200)
             })
         })
     })

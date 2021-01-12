@@ -55,7 +55,7 @@ router.get('/user/:id', restricted, async(req, res) => {
 
 router.post('/', restricted, async(req, res) => {
     const newPurchase = req.body
-    newPurchase.id = uuidv5("user", newPurchase.user_id)
+    newPurchase.UUID = uuidv5("user", newPurchase.user_id)
 
     console.log(newPurchase)
     

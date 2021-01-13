@@ -35,17 +35,25 @@ exports.up = function(knex) {
             .references('id').inTable('subCategories')
 
     })
-    .createTable('purchases', tbl => {
+    .createTable('receipt', tbl => {
         tbl.increments()
-        tbl.string('UUID').notNullable()
         tbl.integer('user_id').unsigned().notNullable()
             .references('UUID').inTable('users')
             .onDelete('CASCADE').onUpdate('CASCADE')
-        tbl.integer('item_id').unsigned().notNullable()
-            .references('id').inTable('items')
+        // tbl.integer('puchased_items').unsigned().notNullable()
+        //     .references('id').inTable('items')
         tbl.timestamps(true, true)
     })
+    .createTable('purchased_items', tbl => {
+        tbl.integer('receipt_id').unsigned().notNullable()
+        tbl.integer('item_id').notNullable().unsigned()
+        tbl.integer('quantity').notNullable().unsigned()
+            .references('id').inTable('purchases')
+        tbl.primary(['receipt_id', 'item_id']);
+    })
 }
+
+//  add one to many tabble to items on a receipt and link them with receipt id.
 
 exports.down = function(knex) {
     return knex.schema

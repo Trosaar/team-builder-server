@@ -11,36 +11,36 @@ module.exports = {
 }
 
 function getAll() {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_items as i', 'i.receipt_id', 'r.id')
 }
 
 function getByUser(id) {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
-    .where({ 'p.user_id': id })
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_purchased_items as i', 'i.receipt_id', 'r.id')
+    .where({ 'r.user_id': id })
 }
 
 function getByItem(id) {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
-    .where({ 'p.item_id': id })
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_items as i', 'i.receipt_id', 'r.id')
+    .where({ 'i.item_id': id })
 }
 
 function getbyID(id) {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_items as i', 'i.receipt_id', 'r.id')
     .where({ id })
 }
 
 function postNew(purchase) {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_items as i', 'i.receipt_id', 'r.id')
     .insert(purchase)
     .then(ids => {
         return getByItem(ids[0])
@@ -48,15 +48,15 @@ function postNew(purchase) {
 }
 
 function update(updates) {
-    return db('purchases as p')
-    .join('users', 'users.UUID', 'p.user_id')
-    .join('items as i', 'i.id', 'p.item_id')
+    return db('receipts as r')
+    .join('users', 'users.UUID', 'r.user_id')
+    .join('purchased_items as i', 'i.receipt_id', 'r.id')
     .where('id', req.params.id)
     .insert(updates)
 }
 
 function remove(id) {
-    return db('purchases as p')
+    return db('receipts as r')
     .where({ id })
     .del()
     .then(() => {

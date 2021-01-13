@@ -35,7 +35,7 @@ exports.up = function(knex) {
             .references('id').inTable('subCategories')
 
     })
-    .createTable('receipt', tbl => {
+    .createTable('receipts', tbl => {
         tbl.increments()
         tbl.integer('user_id').unsigned().notNullable()
             .references('UUID').inTable('users')
